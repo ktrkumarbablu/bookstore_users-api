@@ -7,5 +7,9 @@ import (
 
 func CreateUsers(user users.User) (*users.User, *errors.RestErr) {
 	//not imp
-	return &user, nil
+	if err := user.Validate(); err != nil {
+		return nil, err
+	}
+
+	return nil, nil
 }
