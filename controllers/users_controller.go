@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"log"
+	"strconv"
 
 	"net/http"
 
@@ -17,11 +18,6 @@ func CreateUser(c *gin.Context) {
 	var user users.User
 	err := c.ShouldBindJSON(&user)
 	if err != nil {
-		// restErr := errors.RestErr{
-		// 	Messgae: "invalid json",
-		// 	Status:  http.StatusBadRequest,
-		// 	Error:   "bad_request",
-		// }
 		restErr := errors.NewBadRequestError("invalid json body")
 		c.JSON(restErr.Status, restErr)
 		log.Println(err)
@@ -43,6 +39,17 @@ func FindUser(c *gin.Context) {
 	c.String(http.StatusNotImplemented, "")
 }
 func GetUserByID(c *gin.Context) {
+	userID, userErr := strconv.ParseInt(c.Param("user_id"), 10, 64)
+	if userErr != nil {
+		err := errors.NewBadRequestError("user id should be number")
+		c.JSON(err.Status, err)
+	}
+	user, getErr := services.GetUser(userID)
+	if getErr != nil {
+		c.JSON(getErr.Status, getErr)
+	}
+	c.JSON(http.StatusOK, user)
+
 	c.String(http.StatusNotImplemented, "")
 }
 
