@@ -6,6 +6,7 @@ import (
 
 	"github.com/go-sql-driver/mysql"
 	userdb "github.com/users/api/datasources/mysql/user_db"
+	"github.com/users/api/logger"
 	utils "github.com/users/api/utils/crypt_utils"
 	"github.com/users/api/utils/date_utils"
 	"github.com/users/api/utils/errors"
@@ -25,6 +26,7 @@ var userDB = make(map[int64]*User)
 func (user *User) Get() *errors.RestErr {
 	stmt, err := userdb.ClientDB.Prepare(QueryGetUser)
 	if err != nil {
+		logger.Error("error when try to prepare get the use statement", err)
 		return errors.NewInternalServerError(err.Error())
 	}
 	defer stmt.Close()
