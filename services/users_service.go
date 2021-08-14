@@ -46,3 +46,7 @@ func Delete(user users.User) (*users.User, *errors.RestErr) {
 	}
 	return nil, nil
 }
+func FindUserByStatus(status string) ([]users.User, *errors.RestErr) {
+	services := &users.User{}
+	return services.FindByStatus(status)
+}

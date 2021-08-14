@@ -9,4 +9,5 @@ func mapUrls() {
 	router.GET("v1/users/search", controllers.FindUser)
 	router.PUT("v1/users/:user_id", controllers.UpdateUserByOID)
 	router.DELETE("v1/users/:user_id", controllers.DeleteUser)
+	router.GET("v1/users/searchByStatus", controllers.Search)
 }

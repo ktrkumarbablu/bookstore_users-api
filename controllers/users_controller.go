@@ -92,3 +92,14 @@ func UpdateUserByOID(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, result)
 }
+
+func Search(c *gin.Context) {
+	status := c.Query("status")
+	users, err := services.FindUserByStatus(status)
+	if err != nil {
+		c.JSON(err.Status, err)
+		return
+	}
+	c.JSON(http.StatusOK, users)
+
+}
