@@ -29,7 +29,7 @@ func CreateUser(c *gin.Context) {
 		c.JSON(saveErr.Status, saveErr)
 		return
 	}
-	c.JSON(http.StatusCreated, result)
+	c.JSON(http.StatusCreated, result.Mashall(c.GetHeader("X-Public") == "true"))
 
 }
 func GetUser(c *gin.Context) {
@@ -48,9 +48,8 @@ func GetUserByID(c *gin.Context) {
 	if getErr != nil {
 		c.JSON(getErr.Status, getErr)
 	}
-	c.JSON(http.StatusOK, user)
+	c.JSON(http.StatusOK, user.Mashall(c.GetHeader("X-Public") == "true"))
 
-	c.String(http.StatusNotImplemented, "")
 }
 
 func DeleteUser(c *gin.Context) {
@@ -90,7 +89,7 @@ func UpdateUserByOID(c *gin.Context) {
 		c.JSON(err.Status, err)
 		return
 	}
-	c.JSON(http.StatusOK, result)
+	c.JSON(http.StatusOK, result.Mashall(c.GetHeader("X-Public") == "true"))
 }
 
 func Search(c *gin.Context) {

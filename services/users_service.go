@@ -5,6 +5,13 @@ import (
 	"github.com/users/api/utils/errors"
 )
 
+var (
+	UserService userService = userService{}
+)
+
+type userService struct {
+}
+
 func CreateUsers(user users.User) (*users.User, *errors.RestErr) {
 	//not imp
 	if err := user.Validate(); err != nil {
@@ -33,7 +40,6 @@ func UpdateUser(user users.User) (*users.User, *errors.RestErr) {
 	}
 	current.FirstName = user.FirstName
 	current.LastName = user.LastName
-	current.Email = user.Email
 	if err := current.Update(); err != nil {
 		return nil, err
 	}
@@ -41,6 +47,7 @@ func UpdateUser(user users.User) (*users.User, *errors.RestErr) {
 }
 
 func Delete(user users.User) (*users.User, *errors.RestErr) {
+
 	if err := user.DeleteUserByID(); err != nil {
 		return nil, err
 	}
