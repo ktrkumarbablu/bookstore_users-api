@@ -17,6 +17,7 @@ func init() {
 	var err error
 	ClientDB, err = sql.Open("mysql", dataSources)
 	if err != nil {
+		fmt.Sprint(err.Error())
 		panic(err)
 	}
 	if err = ClientDB.Ping(); err != nil {

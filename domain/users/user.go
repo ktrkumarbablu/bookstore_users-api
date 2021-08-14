@@ -7,11 +7,11 @@ import (
 )
 
 type User struct {
-	Id          int64
-	FirstName   string `json:"id"`
-	LastName    string `json:"firstName"`
+	Id          int64  `json:id`
+	FirstName   string `json:"first_name"`
+	LastName    string `json:"last_name"`
 	Email       string `json:"email"`
-	DateCreated string `json:"datecreated"`
+	DateCreated string `json:"date_created"`
 }
 
 func Validate(users *User) *errors.RestErr {
